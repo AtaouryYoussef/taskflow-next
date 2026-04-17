@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Q1: En React (Vite), on cree des routes avec React Router dans App.tsx et des imports manuels. En Next.js, le routing est base sur les dossiers/fichiers dans app/. Chaque dossier devient une route automatiquement.
 
-## Getting Started
+Q2: Pour la route /login, j'ai cree 1 fichier: app/login/page.tsx. Avec React Router, il faut en general le composant + la declaration de route + l'import dans App.tsx.
 
-First, run the development server:
+Q3: En Next.js, l'id est recupere via params passe en props au composant de page (cote serveur). En React SPA, useParams() est un hook client.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Q4: Le Header global est dans layout.tsx. Il reste monte pendant la navigation, seul le contenu de la page change.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Q5: En React SPA, il faut plus de lignes (useState + useEffect + fetch + loading + error). Ici, en Server Component, quelques lignes async/await suffisent.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Q6: Dans F12 Network du navigateur, on ne voit pas GET /projects de la meme facon, car la requete est faite par le serveur Next.js. Le client recoit deja le HTML rendu.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Q7: Il faut 'use client' dans Login car on utilise useState, onChange et onSubmit (interactivite navigateur). Dashboard n'en a pas besoin car c'est un Server Component.
 
-## Learn More
+Q8: L'equivalent de useNavigate() en Next.js est useRouter() puis router.push('/...').
 
-To learn more about Next.js, take a look at the following resources:
+Q9: Dans React SPA (View Source), on voit surtout une coquille HTML (ex: div root + scripts), pas les donnees projets directement.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Q10: Dans Next.js (View Source), les donnees du dashboard peuvent deja etre presentes dans le HTML rendu par le serveur (SSR).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Q11: En React Router, pour garder un header fixe, on faisait souvent un layout parent (ex: composant AppLayout avec Outlet) qui englobe les pages.
 
-## Deploy on Vercel
+Q12: Pour un layout specifique Dashboard, on cree app/dashboard/layout.tsx.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Q13: Non, un Server Component ne peut pas gerer onClick directement, car il ne tourne pas dans le navigateur. Les handlers d'evenements sont cote client.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Q14: Non, pas besoin de transformer toute la page. On peut garder la page en Server Component et ajouter un petit composant enfant Client Component pour le bouton interactif.
+
+Q15: Avantage securite: on evite d'exposer directement certaines URLs/services internes au navigateur, et on peut centraliser controles, validation et gestion des secrets cote serveur.
