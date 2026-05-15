@@ -4,6 +4,8 @@ interface Project {
   color: string;
 }
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_URL || 'http://localhost:3000';
+
 interface Props {
   params: Promise<{ id: string }>;
 }
@@ -11,7 +13,7 @@ interface Props {
 export default async function ProjectPage({ params }: Props) {
   const { id } = await params;
 
-  const res = await fetch(`http://localhost:4000/projects/${id}`, {
+  const res = await fetch(`${API_BASE_URL}/api/projects/${id}`, {
     cache: 'no-store',
   });
 

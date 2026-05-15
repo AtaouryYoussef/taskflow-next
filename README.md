@@ -1,29 +1,27 @@
-Q1: En React (Vite), on cree des routes avec React Router dans App.tsx et des imports manuels. En Next.js, le routing est base sur les dossiers/fichiers dans app/. Chaque dossier devient une route automatiquement.
+Q1: En React SPA, apres un POST il fallait mettre a jour le state (ex: setProjects) ou refaire un fetch. Ici, la Server Action fait revalidatePath('/dashboard') et la page se met a jour.
 
-Q2: Pour la route /login, j'ai cree 1 fichier: app/login/page.tsx. Avec React Router, il faut en general le composant + la declaration de route + l'import dans App.tsx.
+Q2: Le body du PUT de rename contient tous les champs utiles du projet (name et color) pour garder les donnees completes.
 
-Q3: En Next.js, l'id est recupere via params passe en props au composant de page (cote serveur). En React SPA, useParams() est un hook client.
+Q3: Parce que Dashboard est un Server Component: pas de onClick client direct. Le form envoie les donnees au serveur de facon native.
 
-Q4: Le Header global est dans layout.tsx. Il reste monte pendant la navigation, seul le contenu de la page change.
+Q4: On voit un JSON avec la liste des projets.
 
-Q5: En React SPA, il faut plus de lignes (useState + useEffect + fetch + loading + error). Ici, en Server Component, quelques lignes async/await suffisent.
+Q5: API Route = endpoint HTTP reutilisable (web, mobile, externe). Server Action = mutation liee a l'UI Next/React (souvent via form action).
 
-Q6: Dans F12 Network du navigateur, on ne voit pas GET /projects de la meme facon, car la requete est faite par le serveur Next.js. Le client recoit deja le HTML rendu.
+Q6: Le login Next.js avec useActionState retire plusieurs useState (email, password, loading, erreur), donc moins de code client.
 
-Q7: Il faut 'use client' dans Login car on utilise useState, onChange et onSubmit (interactivite navigateur). Dashboard n'en a pas besoin car c'est un Server Component.
+Q7: Oui, le cookie 'session' est visible dans l'onglet Cookies. Non, avec HttpOnly il n'est pas lisible via document.cookie.
 
-Q8: L'equivalent de useNavigate() en Next.js est useRouter() puis router.push('/...').
+Q8: Avec middleware, la page protegee ne se charge pas du tout sans session. Redirection immediate avant rendu (pas de flash).
 
-Q9: Dans React SPA (View Source), on voit surtout une coquille HTML (ex: div root + scripts), pas les donnees projets directement.
+Q9: middleware.ts doit etre a la racine du projet car Next.js le detecte comme point d'entree global d'interception.
 
-Q10: Dans Next.js (View Source), les donnees du dashboard peuvent deja etre presentes dans le HTML rendu par le serveur (SSR).
+Q10: En React SPA, on utilisait souvent Context/useAuth + state client pour garder l'utilisateur. Ici le layout lit directement le cookie cote serveur.
 
-Q11: En React Router, pour garder un header fixe, on faisait souvent un layout parent (ex: composant AppLayout avec Outlet) qui englobe les pages.
+Q11: Pour un formulaire de creation dans l'app Next: Server Action. Pour une app mobile partageant la meme API: API Routes.
 
-Q12: Pour un layout specifique Dashboard, on cree app/dashboard/layout.tsx.
+Q12: Avantage securite: cookie HttpOnly + controle middleware cote serveur. Le token/sessions n'est pas expose au JavaScript client.
 
-Q13: Non, un Server Component ne peut pas gerer onClick directement, car il ne tourne pas dans le navigateur. Les handlers d'evenements sont cote client.
+Q13: Oui, les API Routes continuent de fonctionner sans json-server car Next.js gere deja le backend et lit/ecrit dans db.json.
 
-Q14: Non, pas besoin de transformer toute la page. On peut garder la page en Server Component et ajouter un petit composant enfant Client Component pour le bouton interactif.
-
-Q15: Avantage securite: on evite d'exposer directement certaines URLs/services internes au navigateur, et on peut centraliser controles, validation et gestion des secrets cote serveur.
+Q14: Non, un script XSS ne peut pas voler un cookie HttpOnly via JavaScript.
