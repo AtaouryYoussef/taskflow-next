@@ -3,11 +3,11 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-interface LoginState {
+export interface LoginState {
   error?: string;
 }
 
-export async function login(_prevState: LoginState | null, formData: FormData): Promise<LoginState | void> {
+export async function login(_prevState: LoginState | null, formData: FormData): Promise<LoginState | null> {
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
 
